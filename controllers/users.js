@@ -1,5 +1,6 @@
 // Module dependencies
 const signToken = require('../helpers/token');
+const Survey = require('../models/Survey');
 const User = require('../models/User');
 
 // Helper function to generate sign-up and sign-in response
@@ -147,6 +148,9 @@ module.exports = {
 
     // Remove the user
     await user.remove();
+
+    // Remove user's surveys
+    await Survey.remove({ user });
 
     // Return response
     res.status(200).json({ success: true });

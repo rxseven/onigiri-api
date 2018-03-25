@@ -82,6 +82,17 @@ module.exports = {
         .required()
         .email(),
       password: Joi.string().required()
+    }),
+
+    // Create survey
+    createSurvey: Joi.object().keys({
+      body: Joi.string().required(),
+      from: Joi.string(),
+      landing: Joi.string(),
+      recipients: Joi.string().required(),
+      sender: Joi.string().required(),
+      subject: Joi.string().required(),
+      title: Joi.string().required()
     })
   }
 };
