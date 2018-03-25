@@ -1,4 +1,8 @@
 module.exports = {
+  campaign: {
+    landing: '',
+    sender: ''
+  },
   doorway: {
     URI: '',
     tracking: ''
