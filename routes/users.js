@@ -21,5 +21,8 @@ router
 // Sign-out
 router.route('/signout').get(usersController.signOut);
 
+// Get user profile
+router.route('/profile').get(requireJWT, usersController.getProfile);
+
 // Module exports
 module.exports = router;
