@@ -28,5 +28,14 @@ router
     surveysController.getSurvey
   );
 
+// Get recipients
+router
+  .route('/:surveyId/recipients')
+  .get(
+    requireJWT,
+    validators.param(schemas.id, 'surveyId'),
+    surveysController.getRecipients
+  );
+
 // Module exports
 module.exports = router;
