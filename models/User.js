@@ -1,4 +1,5 @@
 // Module dependencies
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -63,6 +64,26 @@ const userSchema = new Schema({
     default: false,
     required: true,
     type: Boolean
+  }
+});
+
+// Password hash middleware
+userSchema.pre('save', async function(next) {
+  try {
+    // Generate a sult
+    const salt = await bcrypt.genSalt(10);
+
+    // Hash a password
+    const hash = await bcrypt.hash(this.password, salt);
+
+    // Overwrite a password with hash
+    this.password = hash;
+
+    // Call the next middleware
+    next();
+  } catch (error) {
+    // Return an error
+    next(error);
   }
 });
 
