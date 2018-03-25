@@ -2,6 +2,9 @@ module.exports = {
   mongoDB: {
     URI: process.env.MONGODB_URI
   },
+  sendgrid: {
+    key: process.env.SENDGRID_KEY
+  },
   stripe: {
     key: {
       publishable: process.env.STRIPE_PUBLISHABLE_KEY,
