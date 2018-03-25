@@ -1,0 +1,2 @@
+// Users controller
+module.exports = {};
