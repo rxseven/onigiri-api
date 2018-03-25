@@ -1,4 +1,5 @@
 // Module dependencies
+const bodyParser = require('body-parser');
 const express = require('express');
 const logger = require('morgan');
 
@@ -7,6 +8,9 @@ const app = express();
 
 // Logger
 app.use(logger('dev'));
+
+// Body parsing
+app.use(bodyParser.json());
 
 // Catch 404 errors and forward to an error handler
 app.use((req, res, next) => {
