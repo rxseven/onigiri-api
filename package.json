@@ -38,6 +38,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "path-parser": "^3.0.1",
+    "sendgrid": "^5.2.3",
     "stripe": "^5.6.0"
   }
 }
