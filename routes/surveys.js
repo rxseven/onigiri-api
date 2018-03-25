@@ -19,5 +19,14 @@ router
     surveysController.createSurvey
   );
 
+// Get survey
+router
+  .route('/:surveyId')
+  .get(
+    requireJWT,
+    validators.param(schemas.id, 'surveyId'),
+    surveysController.getSurvey
+  );
+
 // Module exports
 module.exports = router;
