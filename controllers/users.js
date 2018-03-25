@@ -129,5 +129,17 @@ module.exports = {
 
     // Return a response
     res.status(200).json(response);
+  },
+
+  // / Delete user account
+  deleteUser: async (req, res, next) => {
+    // Get user instance from the request object
+    const user = req.user;
+
+    // Remove the user
+    await user.remove();
+
+    // Return response
+    res.status(200).json({ success: true });
   }
 };
