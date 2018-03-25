@@ -88,6 +88,16 @@ userSchema.pre('save', async function(next) {
   }
 });
 
+// Helper method to validate user's password
+userSchema.methods.comparePassword = async function(candidatePassword) {
+  try {
+    // Compare passwords and return a comparison result
+    return await bcrypt.compare(candidatePassword, this.password);
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 // Helper method to get user's gravatar
 userSchema.methods.avatar = function(size) {
   // Variables
