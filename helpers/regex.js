@@ -1,2 +1,4 @@
 // Regular expressions
-module.exports = {};
+module.exports = {
+  mongoID: /^[0-9a-zA-Z]{24}$/
+};
