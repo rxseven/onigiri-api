@@ -1,5 +1,6 @@
 // Module dependencies
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const express = require('express');
 const boolParser = require('express-query-boolean');
 const logger = require('morgan');
@@ -15,6 +16,9 @@ app.use(bodyParser.json());
 
 // Query string parsing
 app.use(boolParser());
+
+// CORS
+app.use(cors());
 
 // Catch 404 errors and forward to an error handler
 app.use((req, res, next) => {
