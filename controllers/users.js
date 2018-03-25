@@ -4,7 +4,7 @@ const User = require('../models/User');
 
 // Helper function to generate sign-up and sign-in response
 const authResponse = user => {
-  // Destructure object properties
+  // Variables
   const { email, firstName, id, lastName } = user;
 
   // Generate a token
