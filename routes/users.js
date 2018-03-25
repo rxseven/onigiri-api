@@ -8,6 +8,9 @@ const { schemas, validators } = require('../middleware/routes');
 // Get user info
 router.route('/').get(requireJWT, usersController.getUser);
 
+// Delete user account
+router.route('/').delete(requireJWT, usersController.deleteUser);
+
 // Sign-up
 router
   .route('/signup')
