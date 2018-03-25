@@ -74,6 +74,14 @@ module.exports = {
       firstName: Joi.string().required(),
       lastName: Joi.string().required(),
       password: Joi.string().required()
+    }),
+
+    // Sign-in
+    signIn: Joi.object().keys({
+      email: Joi.string()
+        .required()
+        .email(),
+      password: Joi.string().required()
     })
   }
 };
