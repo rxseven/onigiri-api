@@ -1,0 +1,9 @@
+{
+  "name": "onigiri-api",
+  "version": "0.1.0",
+  "description": "Node.js RESTful API",
+  "main": "app.js",
+  "repository": "https://rxseven@github.com/rxseven/onigiri-api.git",
+  "author": "Theerawat Pongsupawat",
+  "license": "MIT"
+}
