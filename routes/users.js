@@ -27,5 +27,8 @@ router.route('/signout').get(usersController.signOut);
 // Get user profile
 router.route('/profile').get(requireJWT, usersController.getProfile);
 
+// Get credits
+router.route('/credits').get(requireJWT, usersController.getCredits);
+
 // Module exports
 module.exports = router;
