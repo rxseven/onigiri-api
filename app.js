@@ -15,5 +15,20 @@ app.use((req, res, next) => {
   next(err);
 });
 
+// Error handler
+app.use((err, req, res, next) => {
+  // Envorioment conditions
+  const error = process.env.NODE_ENV === 'development' ? err : {};
+  const status = err.status || 500;
+
+  // Respond to a client
+  res.status(status).json({
+    error: { message: error.message }
+  });
+
+  // Respond to a developer
+  console.error(err);
+});
+
 // Bind and listen for connections on the specified host and port
 app.listen(process.env.PORT || 5000);
