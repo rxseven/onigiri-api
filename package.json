@@ -9,7 +9,8 @@
   },
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "webhook": "./webhook.sh"
   },
   "repository": "https://rxseven@github.com/rxseven/onigiri-api.git",
   "author": "Theerawat Pongsupawat",
