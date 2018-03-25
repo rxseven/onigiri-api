@@ -15,5 +15,8 @@ router
   .route('/signin')
   .post(validators.body(schemas.signIn), requireAuth, usersController.signIn);
 
+// Sign-out
+router.route('/signout').get(usersController.signOut);
+
 // Module exports
 module.exports = router;
