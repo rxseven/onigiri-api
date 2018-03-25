@@ -1,5 +1,16 @@
 // Module dependencies
-const { isEmpty } = require('lodash');
+const {
+  chain,
+  compact,
+  each,
+  exact,
+  isEmpty,
+  map,
+  uniqBy,
+  value
+} = require('lodash');
+const Path = require('path-parser');
+const { URL } = require('url');
 
 const credentials = require('../config/credentials');
 const Survey = require('../models/Survey');
@@ -9,6 +20,68 @@ const surveyTemplate = require('../templates/emails/surveys');
 
 // Surveys controller
 module.exports = {
+  // Create new survey and send out emails
+  createSurvey: async (req, res, next) => {
+    // Variables
+    const charge = 1;
+    const {
+      body,
+      from,
+      landing,
+      recipients,
+      sender,
+      subject,
+      title
+    } = req.value.body;
+
+    // Transform email list to an appropriate format
+    const recipientsArray = recipients
+      .split(',')
+      .map(email => ({ email: email.trim() }));
+
+    // Create new survey instance
+    const survey = new Survey({
+      body,
+      dateSent: Date.now(),
+      from,
+      landing,
+      recipients: recipientsArray,
+      sender,
+      subject,
+      title,
+      user: req.user.id
+    });
+
+    // Prepare email template
+    const doorwayURI = credentials.doorway.URI;
+    const template = surveyTemplate(survey, doorwayURI);
+
+    // Setup mailer
+    const mailer = new Mailer(survey, template);
+
+    try {
+      // Send an email
+      await mailer.send();
+
+      // Save survey instance to the database
+      await survey.save();
+
+      // Deduct user's credits
+      req.user.credits.balance -= charge;
+      await User.findByIdAndUpdate(req.user.id, {
+        'credits.balance': req.user.credits.balance
+      });
+
+      // Send a response
+      res.status(201).json({
+        credits: { balance: req.user.credits.balance },
+        id: survey.id
+      });
+    } catch (error) {
+      res.status(422).json({ error: { message: error } });
+    }
+  },
+
   // Delete survey
   deleteSurvey: async (req, res, next) => {
     // Variables
@@ -27,6 +100,25 @@ module.exports = {
 
     // Return a response
     res.status(200).json({ id: surveyId });
+  },
+
+  // Get landing page URI
+  getLanding: async (req, res, next) => {
+    // Select particular survey by the given ID
+    const survey = await Survey.findById(req.value.params.surveyId).select({
+      landing: true,
+      _id: false
+    });
+
+    // Prepare a response
+    const response = { URI: credentials.campaign.landing };
+
+    if (survey.landing) {
+      response.URI = survey.landing;
+    }
+
+    // Return a response
+    res.status(200).json(response);
   },
 
   // Get recipients
@@ -137,68 +229,6 @@ module.exports = {
     res.status(200).json(response);
   },
 
-  // Create new survey and send out emails
-  createSurvey: async (req, res, next) => {
-    // Variables
-    const charge = 1;
-    const {
-      body,
-      from,
-      landing,
-      recipients,
-      sender,
-      subject,
-      title
-    } = req.value.body;
-
-    // Transform email list to an appropriate format
-    const recipientsArray = recipients
-      .split(',')
-      .map(email => ({ email: email.trim() }));
-
-    // Create new survey instance
-    const survey = new Survey({
-      body,
-      dateSent: Date.now(),
-      from,
-      landing,
-      recipients: recipientsArray,
-      sender,
-      subject,
-      title,
-      user: req.user.id
-    });
-
-    // Prepare email template
-    const doorwayURI = credentials.doorway.URI;
-    const template = surveyTemplate(survey, doorwayURI);
-
-    // Setup mailer
-    const mailer = new Mailer(survey, template);
-
-    try {
-      // Send an email
-      await mailer.send();
-
-      // Save survey instance to the database
-      await survey.save();
-
-      // Deduct user's credits
-      req.user.credits.balance -= charge;
-      await User.findByIdAndUpdate(req.user.id, {
-        'credits.balance': req.user.credits.balance
-      });
-
-      // Send a response
-      res.status(201).json({
-        credits: { balance: req.user.credits.balance },
-        id: survey.id
-      });
-    } catch (error) {
-      res.status(422).json({ error: { message: error } });
-    }
-  },
-
   // Update survey
   updateSurvey: async (req, res, next) => {
     // Variables
@@ -209,5 +239,66 @@ module.exports = {
 
     // Return a response
     res.status(200).json(req.body);
+  },
+
+  // Webhooks - receive click events from SendGrid web service
+  webhooks: async (req, res, next) => {
+    // Define destination path and pattern for parsing
+    const path = new Path(`${credentials.doorway.tracking}/:surveyId/:choice`);
+
+    // Create a wrapper instance that wraps request body with explicit
+    // method chain sequences enabled.
+    chain(req.body)
+      // Iterate over request body, run sequence checks and return a new array
+      // with the results of such sequences.
+      .map(({ email, url }) => {
+        // Get the path portion of the URL
+        // Extract survey ID and choice from the given path name
+        const match = path.test(new URL(url).pathname);
+
+        // Return filterd object
+        if (match) {
+          return {
+            choice: match.choice,
+            email,
+            surveyId: match.surveyId
+          };
+        }
+      })
+
+      // Remove falsey values (undefined)
+      .compact()
+
+      // Uniqueness check, remove duplicated elements
+      .uniqBy('email', 'surveyId')
+
+      // Iterate over elements of events and run a query for each element
+      .each(({ choice, email, surveyId }) => {
+        Survey.updateOne(
+          // Find the exact survey record in a collection
+          {
+            _id: surveyId,
+            recipients: {
+              $elemMatch: {
+                email: email,
+                responded: false
+              }
+            }
+          },
+
+          // Update the record with new values
+          {
+            $inc: { [choice]: 1 },
+            $set: { 'recipients.$.responded': true },
+            lastResponded: Date.now()
+          }
+        ).exec();
+      })
+
+      // Unwrap the final result
+      .value();
+
+    // Return a response
+    res.send({});
   }
 };

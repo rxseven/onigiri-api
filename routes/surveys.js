@@ -19,6 +19,9 @@ router
     surveysController.createSurvey
   );
 
+// Webhooks
+router.route('/webhooks').post(surveysController.webhooks);
+
 // Get survey
 router
   .route('/:surveyId')
@@ -36,6 +39,11 @@ router
     validators.param(schemas.id, 'surveyId'),
     surveysController.deleteSurvey
   );
+
+// Get landing page URI
+router
+  .route('/:surveyId/landing')
+  .get(validators.param(schemas.id, 'surveyId'), surveysController.getLanding);
 
 // Get recipients
 router
