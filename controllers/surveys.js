@@ -9,6 +9,26 @@ const surveyTemplate = require('../templates/emails/surveys');
 
 // Surveys controller
 module.exports = {
+  // Delete survey
+  deleteSurvey: async (req, res, next) => {
+    // Variables
+    const surveyId = req.value.params.surveyId;
+
+    // Get a survey
+    const survey = await Survey.findById(surveyId);
+
+    // If the survey doesn't exist, return an error message
+    if (!survey) {
+      return res.status(404).json({ error: { message: 'Not found' } });
+    }
+
+    // Delete particular survey by the given ID
+    await Survey.findByIdAndRemove(surveyId);
+
+    // Return a response
+    res.status(200).json({ id: surveyId });
+  },
+
   // Get recipients
   getRecipients: async (req, res, next) => {
     // Select specific survey and populate recipient list
