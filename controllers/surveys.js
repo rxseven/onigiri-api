@@ -40,6 +40,25 @@ module.exports = {
     res.status(200).json({ id: surveyId });
   },
 
+  // Get landing page URI
+  getLanding: async (req, res, next) => {
+    // Select particular survey by the given ID
+    const survey = await Survey.findById(req.value.params.surveyId).select({
+      landing: true,
+      _id: false
+    });
+
+    // Prepare a response
+    const response = { URI: credentials.campaign.landing };
+
+    if (survey.landing) {
+      response.URI = survey.landing;
+    }
+
+    // Return a response
+    res.status(200).json(response);
+  },
+
   // Get recipients
   getRecipients: async (req, res, next) => {
     // Select specific survey and populate recipient list
