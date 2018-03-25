@@ -1,4 +1,6 @@
 // Module dependencies
+const { isEmpty } = require('lodash');
+
 const credentials = require('../config/credentials');
 const Survey = require('../models/Survey');
 const User = require('../models/User');
@@ -7,6 +9,82 @@ const surveyTemplate = require('../templates/emails/surveys');
 
 // Surveys controller
 module.exports = {
+  // Get surveys
+  getSurveys: async (req, res, next) => {
+    // Create query object
+    const queryInput = { ...req.query };
+
+    // Remove properties for pagination
+    delete queryInput.page;
+    delete queryInput.limit;
+
+    // If the request query is empty, set default properties
+    if (isEmpty(queryInput)) {
+      (queryInput.archived = false), (queryInput.completed = false);
+    }
+
+    // Combine query properties
+    const query = {
+      user: req.user.id,
+      ...queryInput
+    };
+
+    // Declare default limit's value
+    if (
+      !req.query.limit ||
+      isNaN(parseFloat(req.query.limit)) ||
+      parseFloat(req.query.limit) < 1
+    ) {
+      req.query.limit = 2;
+    }
+
+    // Declare default page's value
+    if (
+      !req.query.page ||
+      isNaN(parseFloat(req.query.page)) ||
+      parseFloat(req.query.page) < 1
+    ) {
+      req.query.page = 1;
+    }
+
+    // Create object for pagination query
+    const options = {
+      select: 'dateSent id locked no subject title yes',
+      sort: { dateSent: 'desc' },
+      limit: parseFloat(req.query.limit),
+      page: parseFloat(req.query.page)
+    };
+
+    // Get a list of surveys
+    const result = await Survey.paginate(query, options);
+
+    // Create additional pagination meta data
+    const nextPage = result.page === result.pages ? false : result.page + 1;
+    const prevPage = result.page === 1 ? false : result.page - 1;
+
+    // Create a response object
+    const response = {
+      data: result.docs,
+      meta: {
+        query: {
+          limit: result.limit,
+          page: result.page
+        },
+        paging: {
+          next: nextPage,
+          previous: prevPage
+        },
+        summary: {
+          pages: result.pages,
+          total: result.total
+        }
+      }
+    };
+
+    // Return a response
+    res.status(200).json(response);
+  },
+
   // Create new survey and send out emails
   createSurvey: async (req, res, next) => {
     // Variables

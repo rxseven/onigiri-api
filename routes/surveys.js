@@ -6,6 +6,9 @@ const { requireJWT } = require('../middleware/auth');
 const { requireCredits } = require('../middleware/credits');
 const { schemas, validators } = require('../middleware/routes');
 
+// Get surveys
+router.route('/').get(requireJWT, surveysController.getSurveys);
+
 // Create survey
 router
   .route('/')
