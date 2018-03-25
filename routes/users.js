@@ -2,8 +2,11 @@
 const router = require('express-promise-router')();
 
 const usersController = require('../controllers/users');
-const { requireAuth } = require('../middleware/auth');
+const { requireAuth, requireJWT } = require('../middleware/auth');
 const { schemas, validators } = require('../middleware/routes');
+
+// Get user info
+router.route('/').get(requireJWT, usersController.getUser);
 
 // Sign-up
 router
