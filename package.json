@@ -21,6 +21,7 @@
     "prettier-eslint": "^8.8.1"
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
     "express-promise-router": "^3.0.1",
     "express-query-boolean": "^2.0.0",
