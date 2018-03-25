@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const logger = require('morgan');
 
 const credentials = require('./config/credentials');
+const paymentsRoute = require('./routes/payments');
 const usersRoute = require('./routes/users');
 
 // Create Express server
@@ -32,6 +33,7 @@ app.use(boolParser());
 app.use(cors());
 
 // Routes
+app.use('/payments', paymentsRoute);
 app.use('/users', usersRoute);
 
 // Catch 404 errors and forward to an error handler
