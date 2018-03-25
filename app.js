@@ -1,6 +1,7 @@
 // Module dependencies
 const bodyParser = require('body-parser');
 const express = require('express');
+const boolParser = require('express-query-boolean');
 const logger = require('morgan');
 
 // Create Express server
@@ -11,6 +12,9 @@ app.use(logger('dev'));
 
 // Body parsing
 app.use(bodyParser.json());
+
+// Query string parsing
+app.use(boolParser());
 
 // Catch 404 errors and forward to an error handler
 app.use((req, res, next) => {
