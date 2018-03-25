@@ -1,5 +1,6 @@
 // Module dependencies
 const Joi = require('joi');
+const regex = require('../helpers/regex');
 
 // Route middleware
 module.exports = {
@@ -57,5 +58,12 @@ module.exports = {
   },
 
   // Validation schemas
-  schemas: {}
+  schemas: {
+    // ID (24 bit)
+    id: Joi.object().keys({
+      param: Joi.string()
+        .regex(regex.mongoID)
+        .required()
+    })
+  }
 };
