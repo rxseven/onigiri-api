@@ -3,10 +3,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const express = require('express');
 const boolParser = require('express-query-boolean');
+const mongoose = require('mongoose');
 const logger = require('morgan');
 
 // Create Express server
 const app = express();
+
+// Connect to MongoDB
+mongoose.Promise = global.Promise;
 
 // Logger
 app.use(logger('dev'));
