@@ -1,0 +1,2 @@
+// Surveys controller
+module.exports = {};
