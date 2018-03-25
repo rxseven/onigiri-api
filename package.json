@@ -1,0 +1,13 @@
+{
+  "name": "onigiri-api",
+  "version": "0.1.0",
+  "description": "Node.js RESTful API",
+  "main": "app.js",
+  "engines": {
+    "node": "8.9.3",
+    "npm": "5.5.1"
+  },
+  "repository": "https://rxseven@github.com/rxseven/onigiri-api.git",
+  "author": "Theerawat Pongsupawat",
+  "license": "MIT"
+}
