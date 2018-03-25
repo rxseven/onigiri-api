@@ -28,6 +28,15 @@ router
     surveysController.getSurvey
   );
 
+// Delete survey
+router
+  .route('/:surveyId')
+  .delete(
+    requireJWT,
+    validators.param(schemas.id, 'surveyId'),
+    surveysController.deleteSurvey
+  );
+
 // Get recipients
 router
   .route('/:surveyId/recipients')
