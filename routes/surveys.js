@@ -19,6 +19,9 @@ router
     surveysController.createSurvey
   );
 
+// Webhooks
+router.route('/webhooks').post(surveysController.webhooks);
+
 // Get survey
 router
   .route('/:surveyId')
