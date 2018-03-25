@@ -1,0 +1,2 @@
+// Payments controller
+module.exports = {};
