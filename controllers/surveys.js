@@ -177,5 +177,17 @@ module.exports = {
     } catch (error) {
       res.status(422).json({ error: { message: error } });
     }
+  },
+
+  // Update survey
+  updateSurvey: async (req, res, next) => {
+    // Variables
+    const surveyId = req.value.params.surveyId;
+
+    // Update the existing survey
+    const result = await Survey.findByIdAndUpdate(surveyId, req.body);
+
+    // Return a response
+    res.status(200).json(req.body);
   }
 };
