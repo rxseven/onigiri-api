@@ -1,5 +1,16 @@
 // Module dependencies
-const { isEmpty } = require('lodash');
+const {
+  chain,
+  compact,
+  each,
+  exact,
+  isEmpty,
+  map,
+  uniqBy,
+  value
+} = require('lodash');
+const Path = require('path-parser');
+const { URL } = require('url');
 
 const credentials = require('../config/credentials');
 const Survey = require('../models/Survey');
@@ -209,5 +220,67 @@ module.exports = {
 
     // Return a response
     res.status(200).json(req.body);
+  },
+
+  // Webhooks - receive click events from SendGrid web service
+  webhooks: async (req, res, next) => {
+    console.log('webhooks -', req.body);
+    // Define destination path and pattern for parsing
+    const path = new Path(`${credentials.doorway.tracking}/:surveyId/:choice`);
+
+    // Create a wrapper instance that wraps request body with explicit
+    // method chain sequences enabled.
+    chain(req.body)
+      // Iterate over request body, run sequence checks and return a new array
+      // with the results of such sequences.
+      .map(({ email, url }) => {
+        // Get the path portion of the URL
+        // Extract survey ID and choice from the given path name
+        const match = path.test(new URL(url).pathname);
+
+        // Return filterd object
+        if (match) {
+          return {
+            choice: match.choice,
+            email,
+            surveyId: match.surveyId
+          };
+        }
+      })
+
+      // Remove falsey values (undefined)
+      .compact()
+
+      // Uniqueness check, remove duplicated elements
+      .uniqBy('email', 'surveyId')
+
+      // Iterate over elements of events and run a query for each element
+      .each(({ choice, email, surveyId }) => {
+        Survey.updateOne(
+          // Find the exact survey record in a collection
+          {
+            _id: surveyId,
+            recipients: {
+              $elemMatch: {
+                email: email,
+                responded: false
+              }
+            }
+          },
+
+          // Update the record with new values
+          {
+            $inc: { [choice]: 1 },
+            $set: { 'recipients.$.responded': true },
+            lastResponded: Date.now()
+          }
+        ).exec();
+      })
+
+      // Unwrap the final result
+      .value();
+
+    // Return a response
+    res.send({});
   }
 };
