@@ -243,7 +243,6 @@ module.exports = {
 
   // Webhooks - receive click events from SendGrid web service
   webhooks: async (req, res, next) => {
-    console.log('webhooks -', req.body);
     // Define destination path and pattern for parsing
     const path = new Path(`${credentials.doorway.tracking}/:surveyId/:choice`);
 
