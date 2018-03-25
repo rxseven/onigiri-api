@@ -1,0 +1,2 @@
+// Regular expressions
+module.exports = {};
