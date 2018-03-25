@@ -28,6 +28,31 @@ module.exports = {
         // Call the next middleware
         next();
       };
+    },
+
+    // Request body
+    body: schema => {
+      return (req, res, next) => {
+        // Validate a value using the given schema and options
+        const result = Joi.validate(req.body, schema);
+
+        // Error handler
+        if (result.error) {
+          return res.status(400).json({
+            error: {
+              message: result.error.details[0].message
+            }
+          });
+        }
+
+        // Assign validated value to a new property
+        if (!req.value) req.value = {};
+        if (!req.value['body']) req.value['body'] = {};
+        req.value['body'] = result.value;
+
+        // Call the next middleware
+        next();
+      };
     }
   },
 
