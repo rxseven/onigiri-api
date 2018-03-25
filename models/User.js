@@ -1,5 +1,6 @@
 // Module dependencies
 const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -86,6 +87,30 @@ userSchema.pre('save', async function(next) {
     next(error);
   }
 });
+
+// Helper method to get user's gravatar
+userSchema.methods.avatar = function(size) {
+  // Variables
+  const email = this.email;
+  const gravatarURI = 'https://gravatar.com/avatar';
+
+  // Set default avatar size
+  if (!size) size = 192;
+
+  // If the email is not provide, return default avartar
+  if (!email) {
+    return `${gravatarURI}/?s=${size}&d=mm`;
+  }
+
+  // Encrypt email address
+  const md5 = crypto
+    .createHash('md5')
+    .update(email)
+    .digest('hex');
+
+  // Return user avartar
+  return `${gravatarURI}/${md5}?s=${size}`;
+};
 
 // Create User model
 const User = mongoose.model('user', userSchema);
