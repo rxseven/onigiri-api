@@ -9,6 +9,23 @@ const surveyTemplate = require('../templates/emails/surveys');
 
 // Surveys controller
 module.exports = {
+  // Get survey
+  getSurvey: async (req, res, next) => {
+    // Select particular survey by the given ID
+    const survey = await Survey.findById(req.value.params.surveyId).select({
+      recipients: false,
+      user: false,
+      __v: false
+    });
+
+    // Return a response
+    if (survey) {
+      res.status(200).json(survey);
+    } else {
+      res.status(404).json({ error: { message: 'Not found' } });
+    }
+  },
+
   // Get surveys
   getSurveys: async (req, res, next) => {
     // Create query object
