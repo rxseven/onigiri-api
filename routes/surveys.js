@@ -37,5 +37,14 @@ router
     surveysController.getRecipients
   );
 
+// Replace and update survey
+router
+  .route('/:surveyId/update')
+  .patch(
+    requireJWT,
+    validators.param(schemas.id, 'surveyId'),
+    surveysController.updateSurvey
+  );
+
 // Module exports
 module.exports = router;
