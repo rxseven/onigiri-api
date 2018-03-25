@@ -1,8 +1,6 @@
 {
   "extends": ["eslint:recommended", "plugin:node/recommended"],
-  "node/exports-style": ["error", "module.exports"],
   "plugins": ["node"],
-  "quotes": [2, "single", { "avoidEscape": true }],
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-console": "off",
@@ -12,6 +10,8 @@
         "vars": "local",
         "args": "none"
       }
-    ]
+    ],
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "node/exports-style": ["error", "module.exports"]
   }
 }
