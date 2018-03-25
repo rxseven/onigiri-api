@@ -1,0 +1,7 @@
+{
+  "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "plugins": ["node"],
+  "rules": {
+    "node/exports-style": ["error", "module.exports"]
+  }
+}
