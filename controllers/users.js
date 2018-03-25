@@ -131,6 +131,15 @@ module.exports = {
     res.status(200).json(response);
   },
 
+  // Get credits
+  getCredits: async (req, res, next) => {
+    // Get credits property from the current user instance
+    const { balance, lastCheckout } = req.user.credits;
+
+    // Return a response
+    res.status(200).json({ balance, lastCheckout });
+  },
+
   // / Delete user account
   deleteUser: async (req, res, next) => {
     // Get user instance from the request object
