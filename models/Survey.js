@@ -1,5 +1,6 @@
 // Module dependencies
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const { Schema } = mongoose;
 
 const recipientSchema = require('./Recipient');
@@ -37,6 +38,9 @@ const surveySchema = new Schema({
     type: Schema.Types.ObjectId
   }
 });
+
+// Add pagination plugin
+surveySchema.plugin(mongoosePaginate);
 
 // Create Survey model
 const Survey = mongoose.model('survey', surveySchema);
