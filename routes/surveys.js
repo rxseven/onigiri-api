@@ -40,6 +40,11 @@ router
     surveysController.deleteSurvey
   );
 
+// Get landing page URI
+router
+  .route('/:surveyId/landing')
+  .get(validators.param(schemas.id, 'surveyId'), surveysController.getLanding);
+
 // Get recipients
 router
   .route('/:surveyId/recipients')
