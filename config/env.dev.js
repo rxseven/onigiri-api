@@ -1,4 +1,8 @@
 module.exports = {
+  doorway: {
+    URI: '',
+    tracking: ''
+  },
   mongoDB: {
     URI: ''
   },
