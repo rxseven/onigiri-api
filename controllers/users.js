@@ -100,5 +100,46 @@ module.exports = {
 
     // Return a response
     res.status(200).json(response);
+  },
+
+  // Get user profile
+  getProfile: async (req, res, next) => {
+    // Get user instance from the request object
+    const user = req.user;
+
+    // Get user avatar
+    const avatar = user.avatar(200);
+
+    // Create a response object
+    const response = {
+      creationDate: user.creationDate,
+      email: user.email,
+      gender: user.gender,
+      id: user._id,
+      language: user.language,
+      name: {
+        firstName: user.firstName,
+        lastName: user.lastName
+      },
+      photo: { url: avatar },
+      provider: user.provider,
+      role: user.role,
+      verified: user.verified
+    };
+
+    // Return a response
+    res.status(200).json(response);
+  },
+
+  // / Delete user account
+  deleteUser: async (req, res, next) => {
+    // Get user instance from the request object
+    const user = req.user;
+
+    // Remove the user
+    await user.remove();
+
+    // Return response
+    res.status(200).json({ success: true });
   }
 };

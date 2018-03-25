@@ -8,6 +8,9 @@ const { schemas, validators } = require('../middleware/routes');
 // Get user info
 router.route('/').get(requireJWT, usersController.getUser);
 
+// Delete user account
+router.route('/').delete(requireJWT, usersController.deleteUser);
+
 // Sign-up
 router
   .route('/signup')
@@ -20,6 +23,9 @@ router
 
 // Sign-out
 router.route('/signout').get(usersController.signOut);
+
+// Get user profile
+router.route('/profile').get(requireJWT, usersController.getProfile);
 
 // Module exports
 module.exports = router;
