@@ -64,6 +64,16 @@ module.exports = {
       param: Joi.string()
         .regex(regex.mongoID)
         .required()
+    }),
+
+    // Sign-up
+    signUp: Joi.object().keys({
+      email: Joi.string()
+        .required()
+        .email(),
+      firstName: Joi.string().required(),
+      lastName: Joi.string().required(),
+      password: Joi.string().required()
     })
   }
 };
