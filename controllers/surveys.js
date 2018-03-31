@@ -110,15 +110,25 @@ module.exports = {
       _id: false
     });
 
-    // Prepare a response
-    const response = { URI: credentials.campaign.landing };
+    // If survey exists
+    if (survey) {
+      // Prepare a response
+      const response = { URI: credentials.campaign.landing };
 
-    if (survey.landing) {
-      response.URI = survey.landing;
+      if (survey.landing) {
+        response.URI = survey.landing;
+      }
+
+      // Return a response
+      return res.status(200).json(response);
     }
 
-    // Return a response
-    res.status(200).json(response);
+    // Otherwise, return error message
+    res.status(404).json({
+      error: {
+        message: 'This survey is already expired, thank you for your feedback!'
+      }
+    });
   },
 
   // Get recipients
@@ -274,25 +284,31 @@ module.exports = {
 
       // Iterate over elements of events and run a query for each element
       .each(({ choice, email, surveyId }) => {
-        Survey.updateOne(
-          // Find the exact survey record in a collection
-          {
-            _id: surveyId,
-            recipients: {
-              $elemMatch: {
-                email: email,
-                responded: false
-              }
-            }
-          },
+        Survey.count({ _id: surveyId }, (err, count) => {
+          // Check existing survey before updating
+          if (count !== 0) {
+            // Otherwise, update survey with responses from SendGrid
+            Survey.updateOne(
+              // Find the exact survey record in a collection
+              {
+                _id: surveyId,
+                recipients: {
+                  $elemMatch: {
+                    email: email,
+                    responded: false
+                  }
+                }
+              },
 
-          // Update the record with new values
-          {
-            $inc: { [choice]: 1 },
-            $set: { 'recipients.$.responded': true },
-            lastResponded: Date.now()
+              // Update the record with new values
+              {
+                $inc: { [choice]: 1 },
+                $set: { 'recipients.$.responded': true },
+                lastResponded: Date.now()
+              }
+            ).exec();
           }
-        ).exec();
+        });
       })
 
       // Unwrap the final result
