@@ -110,15 +110,25 @@ module.exports = {
       _id: false
     });
 
-    // Prepare a response
-    const response = { URI: credentials.campaign.landing };
+    // If survey exists
+    if (survey) {
+      // Prepare a response
+      const response = { URI: credentials.campaign.landing };
 
-    if (survey.landing) {
-      response.URI = survey.landing;
+      if (survey.landing) {
+        response.URI = survey.landing;
+      }
+
+      // Return a response
+      return res.status(200).json(response);
     }
 
-    // Return a response
-    res.status(200).json(response);
+    // Otherwise, return error message
+    res.status(404).json({
+      error: {
+        message: 'This survey is already expired, thank you for your feedback!'
+      }
+    });
   },
 
   // Get recipients
