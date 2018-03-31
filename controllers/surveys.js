@@ -274,25 +274,31 @@ module.exports = {
 
       // Iterate over elements of events and run a query for each element
       .each(({ choice, email, surveyId }) => {
-        Survey.updateOne(
-          // Find the exact survey record in a collection
-          {
-            _id: surveyId,
-            recipients: {
-              $elemMatch: {
-                email: email,
-                responded: false
-              }
-            }
-          },
+        Survey.count({ _id: surveyId }, (err, count) => {
+          // Check existing survey before updating
+          if (count !== 0) {
+            // Otherwise, update survey with responses from SendGrid
+            Survey.updateOne(
+              // Find the exact survey record in a collection
+              {
+                _id: surveyId,
+                recipients: {
+                  $elemMatch: {
+                    email: email,
+                    responded: false
+                  }
+                }
+              },
 
-          // Update the record with new values
-          {
-            $inc: { [choice]: 1 },
-            $set: { 'recipients.$.responded': true },
-            lastResponded: Date.now()
+              // Update the record with new values
+              {
+                $inc: { [choice]: 1 },
+                $set: { 'recipients.$.responded': true },
+                lastResponded: Date.now()
+              }
+            ).exec();
           }
-        ).exec();
+        });
       })
 
       // Unwrap the final result
