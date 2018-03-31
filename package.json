@@ -1,7 +1,19 @@
 {
   "name": "onigiri-api",
-  "version": "0.1.0",
-  "description": "Node.js RESTful API",
+  "description": "Node.js RESTful API for collecting and organizing surveys",
+  "version": "1.0.0-alpha",
+  "homepage": "https://onigiri-webapp.herokuapp.com",
+  "license": "CC BY-NC-ND 4.0",
+  "author": {
+    "name": "Theerawat Pongpawat",
+    "email": "rxseven.com@gmail.com",
+    "url": "http://www.rxseven.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rxseven/onigiri-api.git"
+  },
+  "private": true,
   "main": "app.js",
   "engines": {
     "node": "8.9.3",
@@ -12,9 +24,6 @@
     "dev": "nodemon app.js",
     "webhook": "./webhook.sh"
   },
-  "repository": "https://rxseven@github.com/rxseven/onigiri-api.git",
-  "author": "Theerawat Pongsupawat",
-  "license": "MIT",
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-plugin-node": "^6.0.1",
