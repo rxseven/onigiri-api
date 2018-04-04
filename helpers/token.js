@@ -1,6 +1,6 @@
 // Module dependencies
+const config = require('config');
 const JWT = require('jsonwebtoken');
-const credentials = require('../config/credentials');
 
 // Sign JWT
 const signToken = user =>
@@ -11,7 +11,7 @@ const signToken = user =>
       iss: 'rxseven.com',
       sub: user.id
     },
-    credentials.token.secret
+    config.token.secret
   );
 
 // Module exports
