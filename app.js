@@ -1,12 +1,12 @@
 // Module dependencies
 const bodyParser = require('body-parser');
+const config = require('config');
 const cors = require('cors');
 const express = require('express');
 const boolParser = require('express-query-boolean');
 const mongoose = require('mongoose');
 const logger = require('morgan');
 
-const credentials = require('./config/credentials');
 const paymentsRoute = require('./routes/payments');
 const surveysRoute = require('./routes/surveys');
 const usersRoute = require('./routes/users');
@@ -16,7 +16,7 @@ const app = express();
 
 // Connect to MongoDB
 mongoose.Promise = global.Promise;
-mongoose.connect(credentials.mongoDB.URI);
+mongoose.connect(config.mongoDB.URI);
 mongoose.connection.on('error', err => {
   console.error(err);
 });

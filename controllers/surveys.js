@@ -1,4 +1,5 @@
 // Module dependencies
+const config = require('config');
 const {
   chain,
   compact,
@@ -12,7 +13,6 @@ const {
 const Path = require('path-parser');
 const { URL } = require('url');
 
-const credentials = require('../config/credentials');
 const Survey = require('../models/Survey');
 const User = require('../models/User');
 const Mailer = require('../services/Mailer');
@@ -53,7 +53,7 @@ module.exports = {
     });
 
     // Prepare email template
-    const doorwayURI = credentials.doorway.URI;
+    const doorwayURI = config.doorway.URI;
     const template = surveyTemplate(survey, doorwayURI);
 
     // Setup mailer
@@ -113,7 +113,7 @@ module.exports = {
     // If survey exists
     if (survey) {
       // Prepare a response
-      const response = { URI: credentials.campaign.landing };
+      const response = { URI: config.campaign.landing };
 
       if (survey.landing) {
         response.URI = survey.landing;
@@ -254,7 +254,7 @@ module.exports = {
   // Webhooks - receive click events from SendGrid web service
   webhooks: async (req, res, next) => {
     // Define destination path and pattern for parsing
-    const path = new Path(`${credentials.doorway.tracking}/:surveyId/:choice`);
+    const path = new Path(`${config.doorway.tracking}/:surveyId/:choice`);
 
     // Create a wrapper instance that wraps request body with explicit
     // method chain sequences enabled.
