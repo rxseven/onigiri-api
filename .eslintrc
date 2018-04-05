@@ -1,17 +1,23 @@
 {
   "extends": ["eslint:recommended", "plugin:node/recommended"],
-  "plugins": ["node"],
+  "env": {
+    "mocha": true
+  },
+  "plugins": ["mocha", "node"],
   "rules": {
     "comma-dangle": ["error", "never"],
     "no-console": "off",
     "no-unused-vars": [
       "error",
       {
+        "args": "none",
         "vars": "local",
-        "args": "none"
+        "varsIgnorePattern": "should|expect"
       }
     ],
     "quotes": [2, "single", { "avoidEscape": true }],
-    "node/exports-style": ["error", "module.exports"]
+    "mocha/no-exclusive-tests": "error",
+    "node/exports-style": ["error", "module.exports"],
+    "node/no-unpublished-require": 0
   }
 }

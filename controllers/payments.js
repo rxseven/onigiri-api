@@ -1,6 +1,6 @@
 // Module dependencies
-const credentials = require('../config/credentials');
-const stripe = require('stripe')(credentials.stripe.key.secret);
+const config = require('config');
+const stripe = require('stripe')(config.stripe.key.secret);
 
 const User = require('../models/User');
 

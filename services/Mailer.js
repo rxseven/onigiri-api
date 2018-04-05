@@ -1,8 +1,7 @@
 // Module dependencies
+const config = require('config');
 const sendgrid = require('sendgrid');
 const helper = sendgrid.mail;
-
-const credentials = require('../config/credentials');
 
 // Mailer class
 class Mailer extends helper.Mail {
@@ -11,10 +10,10 @@ class Mailer extends helper.Mail {
     super();
 
     // Variables
-    const fromEmail = from ? from : credentials.campaign.sender;
+    const fromEmail = from ? from : config.campaign.sender;
 
     // Class properties
-    this.mailAPI = sendgrid(credentials.sendgrid.key);
+    this.mailAPI = sendgrid(config.sendgrid.key);
     this.from_email = new helper.Email(fromEmail);
     this.subject = subject;
     this.body = new helper.Content('text/html', content);

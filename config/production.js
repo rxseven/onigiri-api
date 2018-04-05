@@ -1,8 +1,4 @@
 module.exports = {
-  campaign: {
-    landing: null,
-    sender: 'noreply.surveys@rxseven.com'
-  },
   doorway: {
     URI: process.env.DOORWAY_URI,
     tracking: process.env.DOORWAY_TRACKING

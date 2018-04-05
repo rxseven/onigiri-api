@@ -1,10 +1,10 @@
 // Module dependencies
+const config = require('config');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local');
 
-const credentials = require('../config/credentials');
 const User = require('../models/User');
 
 // Protected resource (JWT strategy)
@@ -13,7 +13,7 @@ passport.use(
   new JwtStrategy(
     {
       jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-      secretOrKey: credentials.token.secret
+      secretOrKey: config.token.secret
     },
     async (payload, done) => {
       try {
