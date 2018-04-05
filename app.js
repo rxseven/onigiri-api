@@ -22,7 +22,9 @@ mongoose.connection.on('error', err => {
 });
 
 // Logger
-app.use(logger('dev'));
+if (config.util.getEnv('NODE_ENV') !== 'test') {
+  app.use(logger('dev'));
+}
 
 // Body parsing
 app.use(bodyParser.json());
@@ -62,3 +64,6 @@ app.use((err, req, res, next) => {
 
 // Bind and listen for connections on the specified host and port
 app.listen(process.env.PORT || 5000);
+
+// Module exports
+module.exports = app;
