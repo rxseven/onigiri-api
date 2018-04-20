@@ -7,6 +7,8 @@ const { Schema } = mongoose;
 // User schema
 const userSchema = new Schema({
   creationDate: {
+    default: Date.now(),
+    required: true,
     type: Date
   },
   credits: {
@@ -26,6 +28,7 @@ const userSchema = new Schema({
   email: {
     lowercase: true,
     required: true,
+    trim: true,
     type: String,
     unique: true
   },
@@ -48,7 +51,10 @@ const userSchema = new Schema({
     type: String
   },
   password: {
-    required: true,
+    required: false,
+    type: String
+  },
+  photo: {
     type: String
   },
   provider: {
@@ -71,14 +77,16 @@ const userSchema = new Schema({
 // Password hash middleware
 userSchema.pre('save', async function(next) {
   try {
-    // Generate a sult
-    const salt = await bcrypt.genSalt(10);
+    if (this.password) {
+      // Generate a sult
+      const salt = await bcrypt.genSalt(10);
 
-    // Hash a password
-    const hash = await bcrypt.hash(this.password, salt);
+      // Hash a password
+      const hash = await bcrypt.hash(this.password, salt);
 
-    // Overwrite a password with hash
-    this.password = hash;
+      // Overwrite a password with hash
+      this.password = hash;
+    }
 
     // Call the next middleware
     next();
@@ -96,30 +104,6 @@ userSchema.methods.comparePassword = async function(candidatePassword) {
   } catch (error) {
     throw new Error(error);
   }
-};
-
-// Helper method to get user's gravatar
-userSchema.methods.avatar = function(size) {
-  // Variables
-  const email = this.email;
-  const gravatarURI = 'https://gravatar.com/avatar';
-
-  // Set default avatar size
-  if (!size) size = 192;
-
-  // If the email is not provide, return default avartar
-  if (!email) {
-    return `${gravatarURI}/?s=${size}&d=mm`;
-  }
-
-  // Encrypt email address
-  const md5 = crypto
-    .createHash('md5')
-    .update(email)
-    .digest('hex');
-
-  // Return user avartar
-  return `${gravatarURI}/${md5}?s=${size}`;
 };
 
 // Create User model
