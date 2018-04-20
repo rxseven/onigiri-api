@@ -106,8 +106,29 @@ const createResponse = (req, res, next) => {
   return res.status(status).json(createSession(data));
 };
 
+// Verify existing user
+const verifyUser = user => {
+  // Variables
+  const { provider } = user;
+  const service = stringHelper.capitalizeFirstLetter(provider);
+  const messageHeader = 'This email is already in use';
+  let messageBody = ', please try with email and password instead.';
+
+  // Prepare an appropriate message
+  if (provider !== AUTH.provider.local.name) {
+    messageBody = ` with ${service} account, please try with your ${service} ID instead.`;
+  }
+
+  // Return error response
+  return {
+    data: messageHeader + messageBody,
+    status: 403
+  };
+};
+
 // Module exports
 module.exports = {
   createResponse,
-  createUser
+  createUser,
+  verifyUser
 };
