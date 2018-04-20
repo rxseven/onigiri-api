@@ -96,10 +96,7 @@ module.exports = {
   // Get user info
   getUser: async (req, res, next) => {
     // Variables
-    const { email, firstName, id, lastName } = req.user;
-
-    // Get user avatar
-    const avatar = req.user.avatar(200);
+    const { email, firstName, id, lastName, photo } = req.user;
 
     // Create a response object
     const response = {
@@ -109,7 +106,7 @@ module.exports = {
         lastName
       },
       id,
-      photo: { url: avatar }
+      photo: { url: photo }
     };
 
     // Return a response
