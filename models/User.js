@@ -7,6 +7,8 @@ const { Schema } = mongoose;
 // User schema
 const userSchema = new Schema({
   creationDate: {
+    default: Date.now(),
+    required: true,
     type: Date
   },
   credits: {
@@ -26,6 +28,7 @@ const userSchema = new Schema({
   email: {
     lowercase: true,
     required: true,
+    trim: true,
     type: String,
     unique: true
   },
@@ -48,7 +51,10 @@ const userSchema = new Schema({
     type: String
   },
   password: {
-    required: true,
+    required: false,
+    type: String
+  },
+  photo: {
     type: String
   },
   provider: {
