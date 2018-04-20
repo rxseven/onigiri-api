@@ -3,9 +3,24 @@ const config = require('config');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
+const FacebookTokenStrategy = require('passport-facebook-token');
 const LocalStrategy = require('passport-local');
 
 const authHelper = require('../helpers/auth');
+
+// OAuth - Facebook Token strategy
+passport.use(
+  new FacebookTokenStrategy(
+    // Configuration options
+    {
+      clientID: config.facebook.clientID,
+      clientSecret: config.facebook.clientSecret
+    },
+
+    // Verify callback
+    (...arguments) => authHelper.signIn.oauth(...arguments)
+  )
+);
 
 // Protected resource with JWT strategy
 passport.use(

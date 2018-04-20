@@ -1,6 +1,5 @@
 // Module dependencies
 const bcrypt = require('bcryptjs');
-const crypto = require('crypto');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
@@ -48,6 +47,9 @@ const userSchema = new Schema({
   },
   lastName: {
     required: true,
+    type: String
+  },
+  oauthId: {
     type: String
   },
   password: {

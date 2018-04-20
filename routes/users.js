@@ -2,7 +2,11 @@
 const router = require('express-promise-router')();
 
 const usersController = require('../controllers/users');
-const { requireAuth, requireJWT } = require('../middleware/auth');
+const {
+  requireAuth,
+  requireAuthFacebook,
+  requireJWT
+} = require('../middleware/auth');
 const { schemas, validators } = require('../middleware/routes');
 
 // Get user info
@@ -10,6 +14,11 @@ router.route('/').get(requireJWT, usersController.getUser);
 
 // Delete user account
 router.route('/').delete(requireJWT, usersController.deleteUser);
+
+// Sign-in with Facebook
+router
+  .route('/oauth/facebook')
+  .post(requireAuthFacebook, usersController.oauthFacebook);
 
 // Sign-up
 router

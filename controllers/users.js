@@ -8,6 +8,11 @@ const AUTH = require('../constants/auth');
 
 // Users controller
 module.exports = {
+  // Sign-in with Facebook
+  oauthFacebook: async (...arguments) => {
+    authHelper.createResponse(...arguments);
+  },
+
   // Sign-up
   signUp: async (req, res, next) => {
     // Variables

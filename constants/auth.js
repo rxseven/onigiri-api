@@ -1,5 +1,9 @@
 module.exports = {
   provider: {
+    facebook: {
+      label: 'Facebook',
+      name: 'facebook'
+    },
     jwt: {
       label: 'JWT',
       name: 'jwt'
@@ -11,6 +15,7 @@ module.exports = {
   },
   strategy: {
     jwt: 'jwt',
-    local: 'local'
+    local: 'local',
+    oauth: 'oauth'
   }
 };
