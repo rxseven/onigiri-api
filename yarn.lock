@@ -2308,6 +2308,13 @@ passport-facebook-token@^3.3.0:
   dependencies:
     passport-oauth "1.0.0"
 
+passport-google-token@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/passport-google-token/-/passport-google-token-0.1.2.tgz#2596042a09c0c070f2fc397d35937256a81779fd"
+  dependencies:
+    passport-oauth "^1.0.0"
+    pkginfo "0.2.x"
+
 passport-jwt@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/passport-jwt/-/passport-jwt-4.0.0.tgz#7f0be7ba942e28b9f5d22c2ebbb8ce96ef7cf065"
@@ -2338,7 +2345,7 @@ passport-oauth2@1.x.x:
     uid2 "0.0.x"
     utils-merge "1.x.x"
 
-passport-oauth@1.0.0:
+passport-oauth@1.0.0, passport-oauth@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/passport-oauth/-/passport-oauth-1.0.0.tgz#90aff63387540f02089af28cdad39ea7f80d77df"
   dependencies:
@@ -2421,6 +2428,10 @@ pinkie-promise@^2.0.0:
 pinkie@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/pinkie/-/pinkie-2.0.4.tgz#72556b80cfa0d48a974e80e77248e80ed4f7f870"
+
+pkginfo@0.2.x:
+  version "0.2.3"
+  resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.2.3.tgz#7239c42a5ef6c30b8f328439d9b9ff71042490f8"
 
 pluralize@^7.0.0:
   version "7.0.0"
