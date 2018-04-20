@@ -42,6 +42,9 @@ const createUser = async (profile, strategy) => {
 
   // Get profile photo
   switch (provider) {
+    case AUTH.provider.facebook.name:
+      photo = profile.photos[0].value;
+      break;
     default:
       photo = getGravatar(profile.email, 200);
   }
@@ -54,6 +57,14 @@ const createUser = async (profile, strategy) => {
     userModel = {
       ...userDefault,
       password: profile.password
+    };
+  }
+
+  // OAuth
+  if (strategy === AUTH.strategy.oauth) {
+    userModel = {
+      ...userDefault,
+      oauthId: profile.id
     };
   }
 
