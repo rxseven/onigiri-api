@@ -3,6 +3,10 @@ module.exports = {
     URI: process.env.DOORWAY_URI,
     tracking: process.env.DOORWAY_TRACKING
   },
+  facebook: {
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET
+  },
   mongoDB: {
     URI: process.env.MONGODB_URI
   },
