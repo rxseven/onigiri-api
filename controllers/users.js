@@ -1,39 +1,10 @@
 // Module dependencies
 const authHelper = require('../helpers/auth');
-const signToken = require('../helpers/token');
 const Survey = require('../models/Survey');
 const User = require('../models/User');
 
 // Constants
 const AUTH = require('../constants/auth');
-
-// Helper function to generate sign-up and sign-in response
-const authResponse = user => {
-  // Variables
-  const { email, firstName, id, lastName } = user;
-
-  // Generate a token
-  const token = signToken(user);
-
-  // Get user avatar
-  const avatar = user.avatar(200);
-
-  // Create a response object
-  return {
-    token,
-    user: {
-      email,
-      id,
-      name: {
-        firstName,
-        lastName
-      },
-      photo: {
-        url: avatar
-      }
-    }
-  };
-};
 
 // Users controller
 module.exports = {
