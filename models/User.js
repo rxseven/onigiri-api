@@ -77,14 +77,16 @@ const userSchema = new Schema({
 // Password hash middleware
 userSchema.pre('save', async function(next) {
   try {
-    // Generate a sult
-    const salt = await bcrypt.genSalt(10);
+    if (this.password) {
+      // Generate a sult
+      const salt = await bcrypt.genSalt(10);
 
-    // Hash a password
-    const hash = await bcrypt.hash(this.password, salt);
+      // Hash a password
+      const hash = await bcrypt.hash(this.password, salt);
 
-    // Overwrite a password with hash
-    this.password = hash;
+      // Overwrite a password with hash
+      this.password = hash;
+    }
 
     // Call the next middleware
     next();
