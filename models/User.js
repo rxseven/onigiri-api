@@ -50,6 +50,9 @@ const userSchema = new Schema({
     required: true,
     type: String
   },
+  oauthId: {
+    type: String
+  },
   password: {
     required: false,
     type: String
