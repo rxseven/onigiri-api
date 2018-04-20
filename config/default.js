@@ -11,6 +11,10 @@ module.exports = {
     clientID: '',
     clientSecret: ''
   },
+  google: {
+    clientID: '',
+    clientSecret: ''
+  },
   mongoDB: {
     URI: ''
   },
