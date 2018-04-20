@@ -6,32 +6,19 @@ const { ExtractJwt } = require('passport-jwt');
 const LocalStrategy = require('passport-local');
 
 const authHelper = require('../helpers/auth');
-const User = require('../models/User');
 
-// Protected resource (JWT strategy)
+// Protected resource with JWT strategy
 passport.use(
-  // Authenticate user with a JSON Web Token.
+  // Authenticate user with a JSON Web Token
   new JwtStrategy(
+    // Configuration options to control how the token is extracted
     {
       jwtFromRequest: ExtractJwt.fromHeader('authorization'),
       secretOrKey: config.token.secret
     },
-    async (payload, done) => {
-      try {
-        // Find the user specified in a given token
-        const user = await User.findById(payload.sub);
 
-        // If the user doesn't exist, return false
-        if (!user) {
-          return done(null, false);
-        }
-
-        // If the user exists, return the user instance
-        done(null, user);
-      } catch (error) {
-        done(error, false);
-      }
-    }
+    // Verify callback
+    (...arguments) => authHelper.signIn.jwt(...arguments)
   )
 );
 
