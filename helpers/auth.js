@@ -42,6 +42,9 @@ const createUser = async (profile, strategy) => {
 
   // Get profile photo
   switch (provider) {
+    case AUTH.provider.google.name:
+      photo = profile._json.picture;
+      break;
     case AUTH.provider.facebook.name:
       photo = profile.photos[0].value;
       break;
