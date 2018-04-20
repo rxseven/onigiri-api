@@ -184,6 +184,46 @@ const signIn = {
     } catch (error) {
       done(error, false);
     }
+  },
+
+  // OAuth
+  oauth: async (accessToken, refreshToken, profile, done) => {
+    try {
+      // Variables
+      const { emails, id: oauthId } = profile;
+      const email = emails[0].value;
+
+      // Find OAuth profile ID in a collection
+      const existingUser = await User.findOne({ oauthId });
+
+      // If the user exists, return the user instance
+      if (existingUser) {
+        return done(null, {
+          data: existingUser,
+          status: 200
+        });
+      }
+
+      // Then check the existing email
+      const existingEmail = await User.findOne({ email });
+
+      // Check if there is a user with the same given email
+      if (existingEmail) {
+        // Return error response
+        return done(null, verifyUser(existingEmail));
+      }
+
+      // Otherwise, create user instance
+      const user = await createUser(profile, AUTH.strategy.oauth);
+
+      // Return new user instance
+      return done(null, {
+        data: user,
+        status: 201
+      });
+    } catch (error) {
+      return done(error, false);
+    }
   }
 };
 
