@@ -1,4 +1,5 @@
 // Module dependencies
+const authHelper = require('../helpers/auth');
 const signToken = require('../helpers/token');
 const Survey = require('../models/Survey');
 const User = require('../models/User');
@@ -66,9 +67,8 @@ module.exports = {
   },
 
   // Sign-in
-  signIn: async (req, res, next) => {
-    // Return a response
-    res.status(200).json(authResponse(req.user));
+  signIn: async (...arguments) => {
+    authHelper.createResponse(...arguments);
   },
 
   // Sign-out
