@@ -8,5 +8,8 @@ module.exports = {
   requireAuthFacebook: passport.authenticate('facebook-token', {
     session: false
   }),
+  requireAuthGoogle: passport.authenticate('google-token', {
+    session: false
+  }),
   requireJWT: passport.authenticate('jwt', { session: false })
 };

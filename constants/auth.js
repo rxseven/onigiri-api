@@ -4,6 +4,10 @@ module.exports = {
       label: 'Facebook',
       name: 'facebook'
     },
+    google: {
+      label: 'Google',
+      name: 'google'
+    },
     jwt: {
       label: 'JWT',
       name: 'jwt'

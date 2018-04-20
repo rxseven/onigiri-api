@@ -13,6 +13,11 @@ module.exports = {
     authHelper.createResponse(...arguments);
   },
 
+  // Sign-in with Google
+  oauthGoogle: async (...arguments) => {
+    authHelper.createResponse(...arguments);
+  },
+
   // Sign-up
   signUp: async (req, res, next) => {
     // Variables

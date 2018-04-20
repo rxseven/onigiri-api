@@ -5,6 +5,7 @@ const usersController = require('../controllers/users');
 const {
   requireAuth,
   requireAuthFacebook,
+  requireAuthGoogle,
   requireJWT
 } = require('../middleware/auth');
 const { schemas, validators } = require('../middleware/routes');
@@ -19,6 +20,11 @@ router.route('/').delete(requireJWT, usersController.deleteUser);
 router
   .route('/oauth/facebook')
   .post(requireAuthFacebook, usersController.oauthFacebook);
+
+// Sign-in with Google
+router
+  .route('/oauth/google')
+  .post(requireAuthGoogle, usersController.oauthGoogle);
 
 // Sign-up
 router

@@ -4,6 +4,7 @@ const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const { ExtractJwt } = require('passport-jwt');
 const FacebookTokenStrategy = require('passport-facebook-token');
+const GoogleTokenStrategy = require('passport-google-token').Strategy;
 const LocalStrategy = require('passport-local');
 
 const authHelper = require('../helpers/auth');
@@ -15,6 +16,20 @@ passport.use(
     {
       clientID: config.facebook.clientID,
       clientSecret: config.facebook.clientSecret
+    },
+
+    // Verify callback
+    (...arguments) => authHelper.signIn.oauth(...arguments)
+  )
+);
+
+// OAuth - Google Token strategy
+passport.use(
+  new GoogleTokenStrategy(
+    // Configuration options
+    {
+      clientID: config.google.clientID,
+      clientSecret: config.google.clientSecret
     },
 
     // Verify callback
