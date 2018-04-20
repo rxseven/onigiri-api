@@ -1,6 +1,7 @@
 // Module dependencies
 const crypto = require('crypto');
 
+const stringHelper = require('../helpers/string');
 const signToken = require('../helpers/token');
 const User = require('../models/User');
 
@@ -91,7 +92,22 @@ const createSession = user => {
   };
 };
 
+// Create authentication response
+const createResponse = (req, res, next) => {
+  // Variables
+  const { data, status } = req.user;
+
+  // Unauthorized or forbidden, return error response
+  if (status == 401 || status === 403) {
+    return res.status(status).json({ error: { message: data } });
+  }
+
+  // Return a success response
+  return res.status(status).json(createSession(data));
+};
+
 // Module exports
 module.exports = {
+  createResponse,
   createUser
 };
