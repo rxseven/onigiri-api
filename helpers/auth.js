@@ -1,6 +1,7 @@
 // Module dependencies
 const crypto = require('crypto');
 
+const signToken = require('../helpers/token');
 const User = require('../models/User');
 
 // Constants
@@ -63,6 +64,31 @@ const createUser = async (profile, strategy) => {
 
   // Return new user instance
   return user;
+};
+
+// Create session response
+const createSession = user => {
+  // Variables
+  const { email, firstName, id, lastName, photo } = user;
+
+  // Generate a token
+  const token = signToken(user);
+
+  // Return a response object
+  return {
+    token,
+    user: {
+      email,
+      id,
+      name: {
+        firstName,
+        lastName
+      },
+      photo: {
+        url: photo
+      }
+    }
+  };
 };
 
 // Module exports
