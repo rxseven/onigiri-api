@@ -4,6 +4,9 @@ const signToken = require('../helpers/token');
 const Survey = require('../models/Survey');
 const User = require('../models/User');
 
+// Constants
+const AUTH = require('../constants/auth');
+
 // Helper function to generate sign-up and sign-in response
 const authResponse = user => {
   // Variables
@@ -42,28 +45,38 @@ module.exports = {
     // Find email address in a collection
     const existingUser = await User.findOne({ email });
 
-    // Check if there is a user with the same email
+    // Check if the user is already exist
     if (existingUser) {
-      // Return error
-      return res
-        .status(403)
-        .json({ error: { message: 'Email is already in use' } });
+      // Prepare a response
+      req.user = authHelper.verifyUser(existingUser);
+
+      // Return error response
+      return authHelper.createResponse(req, res, next);
     }
 
-    // Create a new user instance
-    const user = new User({
-      creationDate: Date.now(),
-      email,
-      firstName,
-      lastName,
-      password
-    });
+    // Otherwise, create new user account
+    // Prepare user object
+    const profile = {
+      emails: [{ value: email }],
+      name: {
+        givenName: firstName,
+        familyName: lastName
+      },
+      password,
+      provider: AUTH.provider.local.name
+    };
 
-    // Insert a new record
-    await user.save();
+    // Create new user account
+    const user = await authHelper.createUser(profile, AUTH.strategy.local);
 
-    // Return a response
-    res.status(201).json(authResponse(user));
+    // Prepare a response
+    req.user = {
+      data: user,
+      status: 201
+    };
+
+    // Return a success response
+    return authHelper.createResponse(req, res, next);
   },
 
   // Sign-in
