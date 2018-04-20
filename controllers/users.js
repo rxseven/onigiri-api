@@ -118,9 +118,6 @@ module.exports = {
     // Get user instance from the request object
     const user = req.user;
 
-    // Get user avatar
-    const avatar = user.avatar(200);
-
     // Create a response object
     const response = {
       creationDate: user.creationDate,
@@ -132,7 +129,7 @@ module.exports = {
         firstName: user.firstName,
         lastName: user.lastName
       },
-      photo: { url: avatar },
+      photo: { url: user.photo },
       provider: user.provider,
       role: user.role,
       verified: user.verified
