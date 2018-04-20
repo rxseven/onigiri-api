@@ -11,6 +11,7 @@ module.exports = {
   },
   strategy: {
     jwt: 'jwt',
-    local: 'local'
+    local: 'local',
+    oauth: 'oauth'
   }
 };
