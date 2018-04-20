@@ -106,6 +106,58 @@ const createResponse = (req, res, next) => {
   return res.status(status).json(createSession(data));
 };
 
+// Sign-in
+const signIn = {
+  // Local strategy
+  local: async (email, password, done) => {
+    try {
+      // Find the user specified in a given email
+      const user = await User.findOne(
+        {
+          email,
+          provider: 'local'
+        },
+        {
+          creationDate: 0,
+          disabled: 0,
+          gender: 0,
+          language: 0,
+          role: 0,
+          verified: 0,
+          __v: 0
+        }
+      );
+
+      // If the user doesn't exist, return error message
+      if (!user) {
+        return done(null, {
+          data: 'You have entered incorrect email',
+          status: 401
+        });
+      }
+
+      // Verify password
+      const isMatch = await user.comparePassword(password);
+
+      // If the password is invalid, return error message
+      if (!isMatch) {
+        return done(null, {
+          data: 'You have entered incorrect password',
+          status: 401
+        });
+      }
+
+      // Otherwise, return the user instance
+      return done(null, {
+        data: user,
+        status: 200
+      });
+    } catch (error) {
+      done(error, false);
+    }
+  }
+};
+
 // Verify existing user
 const verifyUser = user => {
   // Variables
@@ -130,5 +182,6 @@ const verifyUser = user => {
 module.exports = {
   createResponse,
   createUser,
+  signIn,
   verifyUser
 };
