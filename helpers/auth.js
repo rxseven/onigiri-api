@@ -108,6 +108,24 @@ const createResponse = (req, res, next) => {
 
 // Sign-in
 const signIn = {
+  // JWT strategy
+  jwt: async (payload, done) => {
+    try {
+      // Find the user specified in a given token
+      const user = await User.findById(payload.sub);
+
+      // If the user doesn't exist, return false
+      if (!user) {
+        return done(null, false);
+      }
+
+      // Otherwise, return the user instance
+      done(null, user);
+    } catch (error) {
+      done(error, false);
+    }
+  },
+
   // Local strategy
   local: async (email, password, done) => {
     try {
