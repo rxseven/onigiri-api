@@ -3,6 +3,13 @@
   "env": {
     "mocha": true
   },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    },
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
   "plugins": ["mocha", "node"],
   "rules": {
     "comma-dangle": ["error", "never"],
