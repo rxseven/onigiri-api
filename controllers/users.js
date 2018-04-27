@@ -1,38 +1,23 @@
 // Module dependencies
-const signToken = require('../helpers/token');
+const authHelper = require('../helpers/auth');
 const Survey = require('../models/Survey');
 const User = require('../models/User');
 
-// Helper function to generate sign-up and sign-in response
-const authResponse = user => {
-  // Variables
-  const { email, firstName, id, lastName } = user;
-
-  // Generate a token
-  const token = signToken(user);
-
-  // Get user avatar
-  const avatar = user.avatar(200);
-
-  // Create a response object
-  return {
-    token,
-    user: {
-      email,
-      id,
-      name: {
-        firstName,
-        lastName
-      },
-      photo: {
-        url: avatar
-      }
-    }
-  };
-};
+// Constants
+const AUTH = require('../constants/auth');
 
 // Users controller
 module.exports = {
+  // Sign-in with Facebook
+  oauthFacebook: async (...arguments) => {
+    authHelper.createResponse(...arguments);
+  },
+
+  // Sign-in with Google
+  oauthGoogle: async (...arguments) => {
+    authHelper.createResponse(...arguments);
+  },
+
   // Sign-up
   signUp: async (req, res, next) => {
     // Variables
@@ -41,34 +26,43 @@ module.exports = {
     // Find email address in a collection
     const existingUser = await User.findOne({ email });
 
-    // Check if there is a user with the same email
+    // Check if the user is already exist
     if (existingUser) {
-      // Return error
-      return res
-        .status(403)
-        .json({ error: { message: 'Email is already in use' } });
+      // Prepare a response
+      req.user = authHelper.verifyUser(existingUser);
+
+      // Return error response
+      return authHelper.createResponse(req, res, next);
     }
 
-    // Create a new user instance
-    const user = new User({
-      creationDate: Date.now(),
-      email,
-      firstName,
-      lastName,
-      password
-    });
+    // Otherwise, create new user account
+    // Prepare user object
+    const profile = {
+      emails: [{ value: email }],
+      name: {
+        givenName: firstName,
+        familyName: lastName
+      },
+      password,
+      provider: AUTH.provider.local.name
+    };
 
-    // Insert a new record
-    await user.save();
+    // Create new user account
+    const user = await authHelper.createUser(profile, AUTH.strategy.local);
 
-    // Return a response
-    res.status(201).json(authResponse(user));
+    // Prepare a response
+    req.user = {
+      data: user,
+      status: 201
+    };
+
+    // Return a success response
+    return authHelper.createResponse(req, res, next);
   },
 
   // Sign-in
-  signIn: async (req, res, next) => {
-    // Return a response
-    res.status(200).json(authResponse(req.user));
+  signIn: async (...arguments) => {
+    authHelper.createResponse(...arguments);
   },
 
   // Sign-out
@@ -83,10 +77,7 @@ module.exports = {
   // Get user info
   getUser: async (req, res, next) => {
     // Variables
-    const { email, firstName, id, lastName } = req.user;
-
-    // Get user avatar
-    const avatar = req.user.avatar(200);
+    const { email, firstName, id, lastName, photo } = req.user;
 
     // Create a response object
     const response = {
@@ -96,7 +87,7 @@ module.exports = {
         lastName
       },
       id,
-      photo: { url: avatar }
+      photo: { url: photo }
     };
 
     // Return a response
@@ -107,9 +98,6 @@ module.exports = {
   getProfile: async (req, res, next) => {
     // Get user instance from the request object
     const user = req.user;
-
-    // Get user avatar
-    const avatar = user.avatar(200);
 
     // Create a response object
     const response = {
@@ -122,7 +110,7 @@ module.exports = {
         firstName: user.firstName,
         lastName: user.lastName
       },
-      photo: { url: avatar },
+      photo: { url: user.photo },
       provider: user.provider,
       role: user.role,
       verified: user.verified

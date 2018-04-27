@@ -7,6 +7,14 @@ module.exports = {
     URI: '',
     tracking: ''
   },
+  facebook: {
+    clientID: '',
+    clientSecret: ''
+  },
+  google: {
+    clientID: '',
+    clientSecret: ''
+  },
   mongoDB: {
     URI: ''
   },

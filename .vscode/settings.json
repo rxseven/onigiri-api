@@ -1,0 +1,14 @@
+{
+  // Prettier
+  // Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
+  "editor.formatOnSave": true,
+
+  // Prettier
+  // Disable the default JavaScript formatter (VSCode's built-in) and allows Prettier to handle our code formatting.
+  // Enable/disable default JavaScript formatter.
+  "javascript.format.enable": false,
+
+  // Prettier and ESLint
+  // Use prettier-eslint instead of prettier. Other settings will only be fallbacks in case they could not be inferred from ESLint rules.
+  "prettier.eslintIntegration": true
+}
