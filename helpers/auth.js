@@ -1,5 +1,5 @@
 // Module dependencies
-const crypto = require('crypto');
+const gravatar = require('gravatar');
 
 const stringHelper = require('../helpers/string');
 const signToken = require('../helpers/token');
@@ -10,22 +10,18 @@ const AUTH = require('../constants/auth');
 
 // Get Gravatar
 const getGravatar = (email, size = 192) => {
-  // Variables
-  const gravatarURI = 'https://gravatar.com/avatar';
+  // Options
+  const options = {
+    default: 'mm',
+    protocol: 'https',
+    size
+  };
 
-  // If the email is not provided, return a default
-  if (!email) {
-    return `${gravatarURI}/?s=${size}&d=mm`;
-  }
-
-  // Otherwise, encrypt the email
-  const md5 = crypto
-    .createHash('md5')
-    .digest('hex')
-    .update(email);
+  // Generate photo
+  const photo = gravatar.url(email, options);
 
   // Return user's photo
-  return `${gravatarURI}/${md5}?s=${size}`;
+  return photo;
 };
 
 // Create user account
