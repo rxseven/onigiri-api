@@ -45,7 +45,7 @@ const createUser = async (profile, strategy) => {
       photo = profile.photos[0].value;
       break;
     default:
-      photo = getGravatar(profile.email, 200);
+      photo = getGravatar(email, 200);
   }
 
   // Define default values
