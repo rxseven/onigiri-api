@@ -6,4 +6,9 @@ cache:
     - node_modules
 script:
   - npm run lint
-
+deploy:
+  provider: heroku
+  app:
+    master: onigiri-api
+  api_key:
+    secure: $HEROKU_API_KEY
