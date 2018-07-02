@@ -1,15 +1,6 @@
 // Module dependencies
 const config = require('config');
-const {
-  chain,
-  compact,
-  each,
-  exact,
-  isEmpty,
-  map,
-  uniqBy,
-  value
-} = require('lodash');
+const _ = require('lodash');
 const Path = require('path-parser');
 const { URL } = require('url');
 
@@ -173,7 +164,7 @@ module.exports = {
     delete queryInput.limit;
 
     // If the request query is empty, set default properties
-    if (isEmpty(queryInput)) {
+    if (_.isEmpty(queryInput)) {
       (queryInput.archived = false), (queryInput.completed = false);
     }
 
@@ -245,7 +236,7 @@ module.exports = {
     const surveyId = req.value.params.surveyId;
 
     // Update the existing survey
-    const result = await Survey.findByIdAndUpdate(surveyId, req.body);
+    await Survey.findByIdAndUpdate(surveyId, req.body);
 
     // Return a response
     res.status(200).json(req.body);
@@ -258,7 +249,7 @@ module.exports = {
 
     // Create a wrapper instance that wraps request body with explicit
     // method chain sequences enabled.
-    chain(req.body)
+    _.chain(req.body)
       // Iterate over request body, run sequence checks and return a new array
       // with the results of such sequences.
       .map(({ email, url }) => {

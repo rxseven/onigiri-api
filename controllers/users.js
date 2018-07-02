@@ -9,13 +9,13 @@ const AUTH = require('../constants/auth');
 // Users controller
 module.exports = {
   // Sign-in with Facebook
-  oauthFacebook: async (...arguments) => {
-    authHelper.createResponse(...arguments);
+  oauthFacebook: async (...args) => {
+    authHelper.createResponse(...args);
   },
 
   // Sign-in with Google
-  oauthGoogle: async (...arguments) => {
-    authHelper.createResponse(...arguments);
+  oauthGoogle: async (...args) => {
+    authHelper.createResponse(...args);
   },
 
   // Sign-up
@@ -61,8 +61,8 @@ module.exports = {
   },
 
   // Sign-in
-  signIn: async (...arguments) => {
-    authHelper.createResponse(...arguments);
+  signIn: async (...args) => {
+    authHelper.createResponse(...args);
   },
 
   // Sign-out

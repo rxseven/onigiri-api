@@ -19,7 +19,7 @@ passport.use(
     },
 
     // Verify callback
-    (...arguments) => authHelper.signIn.oauth(...arguments)
+    (...args) => authHelper.signIn.oauth(...args)
   )
 );
 
@@ -33,7 +33,7 @@ passport.use(
     },
 
     // Verify callback
-    (...arguments) => authHelper.signIn.oauth(...arguments)
+    (...args) => authHelper.signIn.oauth(...args)
   )
 );
 
@@ -48,7 +48,7 @@ passport.use(
     },
 
     // Verify callback
-    (...arguments) => authHelper.signIn.jwt(...arguments)
+    (...args) => authHelper.signIn.jwt(...args)
   )
 );
 
@@ -62,6 +62,6 @@ passport.use(
     },
 
     // Verify callback
-    (...arguments) => authHelper.signIn.local(...arguments)
+    (...args) => authHelper.signIn.local(...args)
   )
 );

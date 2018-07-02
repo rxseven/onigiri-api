@@ -1,6 +1,6 @@
 # Onigiri API
 
-[![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Build Status](https://travis-ci.org/rxseven/onigiri-api.svg?branch=master)](https://travis-ci.org/rxseven/onigiri-api) [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/) [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 RESTful API for Onigiri built with Node.js, Express, Passport and MongoDB.
 
@@ -8,12 +8,14 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or web
 
 ## Table of Contents
 
-* [Demo](#demo)
-* [Running Onigiri Locally](#running-onigiri-locally)
-* [Related Projects](#related-projects)
-* [Changelog](#changelog)
-* [Acknowledgements](#acknowledgements)
-* [Licenses](#licenses)
+- [Demo](#demo)
+- [Running Onigiri Locally](#running-onigiri-locally)
+- [Running Tests](#running-tests)
+- [Development Workflow](#development-workflow)
+- [Related Projects](#related-projects)
+- [Changelog](#changelog)
+- [Acknowledgements](#acknowledgements)
+- [Licenses](#licenses)
 
 ## Demo
 
@@ -25,16 +27,16 @@ Onigiri is hosted on Heroku at [https://onigiri-webapp.herokuapp.com](https://on
 
 #### Development environment
 
-* [Node.js v8.9.3](https://nodejs.org/en/blog/release/v8.9.3/) or higher
-* [npm v5.5.1](https://github.com/npm/npm/releases/tag/v5.5.1) or higher or [the latest version of Yarn](https://yarnpkg.com/en/)
+- [nvm](https://github.com/creationix/nvm) and [Node.js v8.9.3](https://nodejs.org/en/blog/release/v8.9.3/) or higher
+- [npm v5.5.1](https://github.com/npm/npm/releases/tag/v5.5.1) or higher or [the latest version of Yarn](https://yarnpkg.com/en/)
 
 #### Third party services
 
-* [Facebook app ID and secret key](https://developers.facebook.com/docs/apps/register/)
-* [Google app ID and secret key](https://developers.google.com/identity/protocols/OAuth2)
-* [Stripe publishable and secret keys](https://stripe.com/docs/keys)
-* [SendGrid API key](https://sendgrid.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html)
-* [MongoDB URI](https://docs.mlab.com/connecting/)
+- [Facebook app ID and secret key](https://developers.facebook.com/docs/apps/register/)
+- [Google app ID and secret key](https://developers.google.com/identity/protocols/OAuth2)
+- [Stripe publishable and secret keys](https://stripe.com/docs/keys)
+- [SendGrid API key](https://sendgrid.com/docs/Classroom/Send/How_Emails_Are_Sent/api_keys.html)
+- [MongoDB URI](https://docs.mlab.com/connecting/)
 
 ### Setup
 
@@ -44,7 +46,13 @@ Onigiri is hosted on Heroku at [https://onigiri-webapp.herokuapp.com](https://on
 git clone https://github.com/rxseven/onigiri-api.git
 ```
 
-**2.** Add your sensitive information to `config/default.js` file:
+**2.** Switch to specified Node version:
+
+```sh
+nvm use
+```
+
+**3.** Add your sensitive information to `config/default.js` file:
 
 ```js
 module.exports = {
@@ -84,19 +92,31 @@ module.exports = {
 
 > Storing API Keys, or any other sensitive information, on a Git repository is something to be avoided at all costs. Even if the repository is private, you should not see it as a safe place to store sensitive information. (details are available in [this article](https://medium.freecodecamp.org/how-to-securely-store-api-keys-4ff3ea19ebda))
 
-**3.** Install dependencies:
+**4.** Install dependencies:
 
 ```sh
 yarn install
 ```
 
-**4.** Start the app:
+**5.** Start the app:
 
 ```sh
 yarn start
 ```
 
-**5.** The app will be available at [http://localhost:5000](http://localhost:5000).
+**6.** The app will be available at [http://localhost:5000](http://localhost:5000).
+
+## Running Tests
+
+Run tests with the command below:
+
+```sh
+yarn test
+```
+
+## Development Workflow
+
+The complete guidelines are available in [this project](https://github.com/rxseven/setup-react-app).
 
 ## Related Projects
 
@@ -110,7 +130,7 @@ See [releases](https://github.com/rxseven/onigiri-api/releases).
 
 ## Acknowledgements
 
-This project is maintained by [Theerawat Pongsupawat](https://www.linkedin.com/in/pongsupawat/), frontend developer from Chiang Mai, Thailand.
+This project is maintained by [Theerawat Pongsupawat](http://www.rxseven.com), frontend developer from Chiang Mai, Thailand.
 
 ## Licenses
 

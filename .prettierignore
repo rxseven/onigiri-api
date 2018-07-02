@@ -1,2 +1,3 @@
-package.json
 templates/emails/*.js
+package.json
+README.md
