@@ -3,6 +3,11 @@
   // Format a file on save. A formatter must be available, the file must not be auto-saved, and editor must not be shutting down.
   "editor.formatOnSave": true,
 
+  // File associations to languages
+  "files.associations": {
+    ".lintstagedrc": "json"
+  },
+
   // Prettier
   // Disable the default JavaScript formatter (VSCode's built-in) and allows Prettier to handle our code formatting.
   // Enable/disable default JavaScript formatter.
