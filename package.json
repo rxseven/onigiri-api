@@ -20,6 +20,7 @@
     "npm": "5.5.1"
   },
   "scripts": {
+    "format": "prettier-eslint --write **/*.{js,json}",
     "lint": "eslint **/*.js",
     "lint:fix": "eslint --fix **/*.js",
     "precommit": "lint-staged",
