@@ -26,7 +26,7 @@
     "precommit": "lint-staged",
     "start": "node app.js",
     "start:watch": "nodemon app.js",
-    "test": "mocha './{,!(node_modules)/**/}*.spec.js'",
+    "test": "mocha \"./{,!(node_modules)/**/}*.spec.js\"",
     "test:watch": "npm run test -- --watch",
     "webhook": "./webhook.sh"
   },
