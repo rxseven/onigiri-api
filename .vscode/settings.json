@@ -6,7 +6,8 @@
   // File associations to languages
   "files.associations": {
     ".eslintrc": "json",
-    ".lintstagedrc": "json"
+    ".lintstagedrc": "json",
+    ".prettierrc": "json"
   },
 
   // Prettier
