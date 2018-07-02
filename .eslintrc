@@ -1,15 +1,10 @@
 {
   "extends": ["eslint:recommended", "plugin:node/recommended"],
   "env": {
-    "mocha": true
+    "mocha": true,
+    "node": true
   },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
-    },
-    "ecmaVersion": 6,
-    "sourceType": "module"
-  },
+  "parser": "babel-eslint",
   "plugins": ["mocha", "node"],
   "rules": {
     "comma-dangle": ["error", "never"],
@@ -22,9 +17,9 @@
         "varsIgnorePattern": "should|expect"
       }
     ],
-    "quotes": [2, "single", { "avoidEscape": true }],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "mocha/no-exclusive-tests": "error",
     "node/exports-style": ["error", "module.exports"],
-    "node/no-unpublished-require": 0
+    "node/no-unpublished-require": "off"
   }
 }
