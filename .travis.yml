@@ -11,8 +11,8 @@ script:
   - npm run lint
 
 deploy:
-  provider: heroku
-  app:
-    master: onigiri-api
-  api_key:
-    secure: $HEROKU_API_KEY
+  - app:
+      master: onigiri-api
+    api_key:
+      secure: $HEROKU_API_KEY
+    provider: heroku
