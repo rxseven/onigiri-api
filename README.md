@@ -10,7 +10,7 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 
 ## Table of Contents
 
-- [Demo](#demo)
+- [Live Demo](#live-demo)
 - [Running Tests](#running-tests)
 - [Development Workflow](#development-workflow)
 - [Related Projects](#related-projects)
@@ -18,9 +18,17 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 - [Acknowledgements](#acknowledgements)
 - [Licenses](#licenses)
 
-## Demo
+## Live Demo
 
-Onigiri is hosted on Heroku at [https://onigiri-webapp.herokuapp.com](https://onigiri-webapp.herokuapp.com)
+**Onigiri Webapp** is running on **Heroku** at [https://onigiri-webapp.herokuapp.com](https://onigiri-webapp.herokuapp.com)
+
+> **App sleeping...** as Onigiri and its API run on [Heroku’s free plan](https://www.heroku.com/free), when an app on Heroku has only one web dyno and that dyno doesn’t receive any traffic in 1 hour, the dyno goes to sleep. When someone accesses the app, the dyno manager will automatically wake up the web dyno to run the web process type. **This causes a short delay for this first request**, but subsequent requests will perform normally. For more information, see [App Sleeping on Heroku](https://blog.heroku.com/app_sleeping_on_heroku).
+
+> **Daily limit** as Onigiri API runs on [SendGrid’s free plan](https://sendgrid.com/free/), and the free trial is already expired, at which point, **Onigiri is restricted to sending 100 emails per day**. For more information, see [SendGrid Pricing & Plans](https://www.sendgrid.com/pricing/).
+
+> **Login with Facebook** button won’t work for you because the relevant Facebook app is still in [development mode](https://developers.facebook.com/docs/apps/managing-development-cycle), and you don’t have access to it.
+
+[Back to top](#table-of-contents)
 
 ## Running Tests
 
