@@ -16,3 +16,8 @@ deploy:
     api_key:
       secure: $HEROKU_API_KEY
     provider: heroku
+
+notifications:
+  email:
+    on_failure: always
+    on_success: change
