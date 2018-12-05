@@ -24,6 +24,7 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 
 - [Technology Stack](#technology-stack)
 - [Development Workflow](#development-workflow)
+- [Third-party Services](#third-party-services)
 
 ### Appendix
 
@@ -191,6 +192,28 @@ All npm scripts are listed under `scripts` section in [`package.json`](https://g
 - Code debugging with Visual Studio Code and Chrome Debugger
 - Pre-commit hooking with Husky and Lint-staged
 - CI/CD with GitHub, Travis CI, Coveralls, and Heroku
+
+[Back to top](#table-of-contents)
+
+## Third-party Services
+
+### Infrastructure
+
+- [Heroku](https://www.heroku.com/) - cloud platform as a service
+- [mLab](https://mlab.com/) - database as a service for MongoDB
+
+### Cloud computing and Platforms
+
+- [SendGrid](https://sendgrid.com/) - cloud-based email
+- [Stripe](https://stripe.com/checkout) - online payment platform
+- [Facebook Platform](https://developers.facebook.com/products/account-creation) - social networking platform
+- [Google Cloud Platform](https://cloud.google.com/) - cloud computing, Hosting, and APIs
+
+### Software as a Service
+
+- [GitHub](https://github.com/) - web-based hosting service for version control using Git
+- [Travis CI](https://travis-ci.org/) - continuous integration
+- [Coveralls](https://coveralls.io/) - test coverage history and statistics
 
 [Back to top](#table-of-contents)
 
