@@ -18,6 +18,7 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 
 - [Running the API Server](#running-the-api-server)
 - [Running Tests](#running-tests)
+- [Available Scripts](#available-scripts)
 
 ### Specifications
 
@@ -160,6 +161,12 @@ yarn start:watch
 ## Running Tests
 
 There are no test suites implemented yet.
+
+[Back to top](#table-of-contents)
+
+## Available Scripts
+
+All npm scripts are listed under `scripts` section in [`package.json`](https://github.com/rxseven/onigiri-api/blob/master/package.json#L22) file.
 
 [Back to top](#table-of-contents)
 
