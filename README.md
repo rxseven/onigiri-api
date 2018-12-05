@@ -22,6 +22,7 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 
 ### Specifications
 
+- [Technology Stack](#technology-stack)
 - [Development Workflow](#development-workflow)
 
 ### Appendix
@@ -167,6 +168,18 @@ There are no test suites implemented yet.
 ## Available Scripts
 
 All npm scripts are listed under `scripts` section in [`package.json`](https://github.com/rxseven/onigiri-api/blob/master/package.json#L22) file.
+
+[Back to top](#table-of-contents)
+
+## Technology Stack
+
+- Node.js, Express, Passport, MongoDB, Mongoose
+- Body parser, Path parser, Joi, Lodash
+- Bcrypt.js, CORS, JSON Web Token
+- SendGrid, Stripe, Gravatar
+- [More...](https://github.com/rxseven/onigiri-api/blob/master/package.json)
+
+> Note: Web application for Onigiri built with React & Redux can be found in [this repository](https://github.com/rxseven/onigiri-webapp).
 
 [Back to top](#table-of-contents)
 
