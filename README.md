@@ -38,7 +38,14 @@ There are no test suites implemented yet.
 
 ## Development Workflow
 
-The complete guidelines are available in [this project](https://github.com/rxseven/setup-react-app).
+- JavaScript linting with ESLint
+- Code formatting with Prettier
+- Automate testing with Mocha, Chai, and Expect
+- Code debugging with Visual Studio Code and Chrome Debugger
+- Pre-commit hooking with Husky and Lint-staged
+- CI/CD with GitHub, Travis CI, Coveralls, and Heroku
+
+[Back to top](#table-of-contents)
 
 ## Related Projects
 
