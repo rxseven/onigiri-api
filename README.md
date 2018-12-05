@@ -32,11 +32,9 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 
 ## Running Tests
 
-Run tests with the command below:
+There are no test suites implemented yet.
 
-```sh
-yarn test
-```
+[Back to top](#table-of-contents)
 
 ## Development Workflow
 
