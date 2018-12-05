@@ -22,6 +22,7 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 
 ### Specifications
 
+- [Features](#features)
 - [Technology Stack](#technology-stack)
 - [Development Workflow](#development-workflow)
 - [Third-party Services](#third-party-services)
@@ -169,6 +170,46 @@ There are no test suites implemented yet.
 ## Available Scripts
 
 All npm scripts are listed under `scripts` section in [`package.json`](https://github.com/rxseven/onigiri-api/blob/master/package.json#L22) file.
+
+[Back to top](#table-of-contents)
+
+## Features
+
+### Authentication
+
+Password-based and OAuth2 *(via third-party services, [Facebook](https://developers.facebook.com/products/account-creation) & [Google](https://cloud.google.com/))*
+
+- Sign-up *(register)*
+- Sign-in
+- Sign-out
+- JSON Web Token
+
+### Users
+
+- View user profile
+- Delete user account
+
+### Payments
+
+- View credits
+- Add credits, checkout, pay by credit card *(via third-party service, [Stripe](https://stripe.com/checkout))*
+
+### Surveys
+
+- Create survey *(and send emails)*
+- View survey list *(with infinite scrolling functionality)*
+- View survey details and statistics
+- View recipient list
+- Update survey *(mark as archive and/or complete)*
+- Delete survey
+
+### Emails and Statistics
+
+- Send survey emails *(via third-party service, [SendGrid](https://sendgrid.com/))*
+- Collect response data *(via webhook)*
+- Update survey statistics
+
+> Note: full details on Onigiri’s features and technical information are available [here](https://onigiri-webapp.herokuapp.com/about).
 
 [Back to top](#table-of-contents)
 
