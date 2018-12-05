@@ -1,6 +1,6 @@
 module.exports = {
   campaign: {
-    landing: '',
+    landing: null,
     sender: ''
   },
   doorway: {
