@@ -10,9 +10,20 @@ With **Onigiri**, you can create and analyze surveys right in your pocket or on 
 
 ## Table of Contents
 
+### Getting Started
+
 - [Live Demo](#live-demo)
+
+### Development
+
 - [Running Tests](#running-tests)
+
+### Specifications
+
 - [Development Workflow](#development-workflow)
+
+### Appendix
+
 - [Related Projects](#related-projects)
 - [Changelog](#changelog)
 - [Acknowledgements](#acknowledgements)
