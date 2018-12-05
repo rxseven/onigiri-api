@@ -1,7 +1,7 @@
 {
   "name": "onigiri-api",
   "description": "Node.js RESTful API for collecting and organizing surveys",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha.6",
   "homepage": "https://onigiri-webapp.herokuapp.com",
   "license": "AGPL-3.0-or-later",
   "author": {
